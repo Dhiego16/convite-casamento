@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<rect width="800" height="600" fill="#16161a"/>
+<rect x="1" y="1" width="798" height="598" fill="none" stroke="#c9a868" stroke-opacity="0.35" stroke-width="1"/>
+<text x="50%" y="50%" font-family="Georgia, serif" font-size="42" fill="#c9a868" fill-opacity="0.8" text-anchor="middle" dominant-baseline="middle">Presente 1</text>
+</svg>

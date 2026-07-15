@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Convite de Casamento</title>
+  <meta name="description" content="Convite digital de casamento.">
+  <meta property="og:title" content="Convite de Casamento">
+  <meta property="og:description" content="Você está convidado.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="icon" href="data:,">
+
+  <!-- Google Fonts: Fraunces (display) + Manrope (interface) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- AOS (Animate On Scroll) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       TELA DE CARREGAMENTO
+  ============================================================ -->
+  <div id="loading-screen" aria-hidden="true">
+    <div class="loading-monogram">
+      <svg viewBox="0 0 200 100" class="monogram-svg" id="loading-svg">
+        <text x="100" y="65" text-anchor="middle" class="monogram-text">B &amp; R</text>
+      </svg>
+    </div>
+    <div class="loading-bar"><span></span></div>
+  </div>
+
+  <!-- ============================================================
+       CURSOR PERSONALIZADO (opcional — desktop apenas)
+  ============================================================ -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       PLAYER DE MÚSICA FLUTUANTE
+  ============================================================ -->
+  <div class="music-player" id="music-player">
+    <button class="music-toggle" id="music-toggle" aria-label="Tocar ou pausar música">
+      <i class="fa-solid fa-music"></i>
+    </button>
+    <div class="music-volume">
+      <input type="range" id="volume-range" min="0" max="1" step="0.05" value="0.4" aria-label="Volume da música">
+    </div>
+  </div>
+  <audio id="bg-audio" loop preload="none"></audio>
+
+  <!-- ============================================================
+       BOTÃO VOLTAR AO TOPO
+  ============================================================ -->
+  <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ============================================================
+       BARRA DE NAVEGAÇÃO POR SEÇÕES (indicador de progresso)
+  ============================================================ -->
+  <nav class="progress-nav" aria-hidden="true"><span class="progress-fill" id="progress-fill"></span></nav>
+
+  <!-- ============================================================
+       01. HERO / PÁGINA INICIAL
+  ============================================================ -->
+  <header class="hero" id="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+      <p class="hero-eyebrow" id="hero-data">— data do casamento —</p>
+      <div class="hero-monogram">
+        <svg viewBox="0 0 240 120" class="monogram-svg-hero">
+          <text x="120" y="80" text-anchor="middle" class="monogram-text-hero" id="hero-monogram-text">B &amp; R</text>
+        </svg>
+      </div>
+      <h1 class="hero-names" id="hero-names">Beatriz <span>&amp;</span> Rafael</h1>
+      <p class="hero-phrase" id="hero-phrase"></p>
+      <a href="#mensagem" class="btn btn-outline hero-btn" id="hero-btn">
+        <span>Ver Convite</span>
+        <i class="fa-solid fa-arrow-down"></i>
+      </a>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true"><span></span></div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         02. MENSAGEM DE ABERTURA
+    ============================================================ -->
+    <section class="section message-section" id="mensagem">
+      <div class="container narrow">
+        <p class="section-eyebrow" data-aos="fade-up">Sejam bem-vindos</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100" id="mensagem-titulo">Vamos nos casar</h2>
+        <p class="message-text" data-aos="fade-up" data-aos-delay="200" id="mensagem-texto"></p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         03. CONTAGEM REGRESSIVA
+    ============================================================ -->
+    <section class="section countdown-section" id="countdown">
+      <div class="container">
+        <p class="section-eyebrow light" data-aos="fade-up">Contagem regressiva</p>
+        <h2 class="section-title light" data-aos="fade-up" data-aos-delay="100" id="countdown-data">14 de Novembro de 2026</h2>
+        <div class="countdown-grid" data-aos="fade-up" data-aos-delay="200">
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-dias">00</span>
+            <span class="countdown-label">Dias</span>
+          </div>
+          <div class="countdown-divider"></div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-horas">00</span>
+            <span class="countdown-label">Horas</span>
+          </div>
+          <div class="countdown-divider"></div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-min">00</span>
+            <span class="countdown-label">Minutos</span>
+          </div>
+          <div class="countdown-divider"></div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="cd-seg">00</span>
+            <span class="countdown-label">Segundos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         04. NOSSA HISTÓRIA
+    ============================================================ -->
+    <section class="section history-section" id="historia">
+      <div class="container">
+        <p class="section-eyebrow" data-aos="fade-up" id="historia-subtitulo">Cada capítulo nos trouxe até aqui</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100" id="historia-titulo">Nossa História</h2>
+        <div class="timeline" id="timeline-container"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         05. GALERIA
+    ============================================================ -->
+    <section class="section gallery-section" id="galeria">
+      <div class="container">
+        <p class="section-eyebrow" data-aos="fade-up" id="galeria-subtitulo">Momentos que guardamos com carinho</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100" id="galeria-titulo">Galeria</h2>
+        <div class="gallery-grid" id="gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- Lightbox da galeria -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      <button class="lightbox-prev" id="lightbox-prev" aria-label="Foto anterior"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="lightbox-content">
+        <img src="" alt="" id="lightbox-img">
+        <p class="lightbox-caption" id="lightbox-caption"></p>
+      </div>
+      <button class="lightbox-next" id="lightbox-next" aria-label="Próxima foto"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- ============================================================
+         06. CERIMÔNIA & RECEPÇÃO
+    ============================================================ -->
+    <section class="section location-section" id="local">
+      <div class="container">
+        <p class="section-eyebrow" data-aos="fade-up">Onde estaremos</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Cerimônia &amp; Recepção</h2>
+
+        <div class="location-grid">
+          <!-- Cerimônia -->
+          <article class="location-card" data-aos="fade-up" data-aos-delay="100">
+            <span class="location-icon"><i class="fa-solid fa-church"></i></span>
+            <h3 id="cerimonia-titulo">Cerimônia</h3>
+            <p class="location-name" id="cerimonia-local"></p>
+            <p class="location-address" id="cerimonia-endereco"></p>
+            <p class="location-datetime">
+              <span id="cerimonia-data"></span> · <span id="cerimonia-horario"></span>
+            </p>
+            <div class="location-map" id="cerimonia-map"></div>
+            <a href="#" target="_blank" rel="noopener" class="btn btn-outline btn-small" id="cerimonia-maps-link">
+              <i class="fa-solid fa-location-dot"></i> Abrir no Google Maps
+            </a>
+          </article>
+
+          <!-- Recepção -->
+          <article class="location-card" data-aos="fade-up" data-aos-delay="200">
+            <span class="location-icon"><i class="fa-solid fa-glass-cheers"></i></span>
+            <h3 id="recepcao-titulo">Recepção</h3>
+            <p class="location-name" id="recepcao-local"></p>
+            <p class="location-address" id="recepcao-endereco"></p>
+            <p class="location-datetime">
+              <span id="recepcao-data"></span> · <span id="recepcao-horario"></span>
+            </p>
+            <div class="location-map" id="recepcao-map"></div>
+            <a href="#" target="_blank" rel="noopener" class="btn btn-outline btn-small" id="recepcao-maps-link">
+              <i class="fa-solid fa-location-dot"></i> Abrir no Google Maps
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         07. LISTA DE PRESENTES
+    ============================================================ -->
+    <section class="section gifts-section" id="presentes">
+      <div class="container">
+        <p class="section-eyebrow light" data-aos="fade-up">Com carinho</p>
+        <h2 class="section-title light" data-aos="fade-up" data-aos-delay="100" id="presentes-titulo">Lista de Presentes</h2>
+        <p class="section-subtitle light" data-aos="fade-up" data-aos-delay="150" id="presentes-subtitulo"></p>
+        <div class="gifts-grid" id="gifts-grid"></div>
+      </div>
+    </section>
+
+    <!-- Toast de confirmação (Pix copiado) -->
+    <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Chave Pix copiada.</span></div>
+
+    <!-- ============================================================
+         08. DRESS CODE
+    ============================================================ -->
+    <section class="section dresscode-section" id="dresscode">
+      <div class="container narrow">
+        <p class="section-eyebrow" data-aos="fade-up">Traje</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100" id="dresscode-titulo">Dress Code</h2>
+        <p class="dresscode-text" data-aos="fade-up" data-aos-delay="150" id="dresscode-texto"></p>
+        <div class="dresscode-palette" id="dresscode-palette" data-aos="fade-up" data-aos-delay="200"></div>
+        <p class="dresscode-obs" data-aos="fade-up" data-aos-delay="250" id="dresscode-obs"></p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         09. CONTATO
+    ============================================================ -->
+    <section class="section contact-section" id="contato">
+      <div class="container narrow">
+        <p class="section-eyebrow" data-aos="fade-up">Dúvidas?</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100" id="contato-titulo">Contato</h2>
+        <div class="contact-links" data-aos="fade-up" data-aos-delay="200">
+          <a href="#" target="_blank" rel="noopener" class="contact-link" id="contato-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="#" target="_blank" rel="noopener" class="contact-link" id="contato-instagram">
+            <i class="fa-brands fa-instagram"></i> Instagram
+          </a>
+          <a href="#" class="contact-link" id="contato-telefone">
+            <i class="fa-solid fa-phone"></i> Telefone
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         10. COMPARTILHAMENTO
+    ============================================================ -->
+    <section class="section share-section">
+      <div class="container narrow">
+        <p class="section-eyebrow" data-aos="fade-up">Compartilhe esse momento</p>
+        <div class="share-links" data-aos="fade-up" data-aos-delay="100">
+          <button class="share-btn" id="share-whatsapp" aria-label="Compartilhar no WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+          <button class="share-btn" id="share-facebook" aria-label="Compartilhar no Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+          </button>
+          <button class="share-btn" id="share-copy" aria-label="Copiar link">
+            <i class="fa-solid fa-link"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       RODAPÉ
+  ============================================================ -->
+  <footer class="footer">
+    <svg viewBox="0 0 200 100" class="monogram-svg-footer">
+      <text x="100" y="65" text-anchor="middle" class="monogram-text-footer" id="footer-monogram">B &amp; R</text>
+    </svg>
+    <p id="footer-names">Beatriz &amp; Rafael</p>
+    <p class="footer-date" id="footer-data">14 · 11 · 2026</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
