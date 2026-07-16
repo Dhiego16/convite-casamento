@@ -388,6 +388,96 @@
   }
 
   /* -----------------------------------------------------------------------
+     11.5 CONFIRMAÇÃO DE PRESENÇA (RSVP)
+  ----------------------------------------------------------------------- */
+  function initRSVP() {
+    const r = cfg.rsvp || {};
+    const section = $("#rsvp");
+    if (!r.ativo) { section?.remove(); return; }
+
+    const set = (id, val) => { const el = $(`#${id}`); if (el) el.textContent = val; };
+    set("rsvp-titulo", r.titulo);
+    set("rsvp-subtitulo", r.subtitulo && r.dataLimite ? `${r.subtitulo} (até ${r.dataLimite})` : (r.subtitulo || ""));
+
+    const form = $("#rsvp-form");
+    const status = $("#rsvp-status");
+    const submitBtn = $("#rsvp-submit");
+    if (!form) return;
+
+    function mostrarStatus(texto, tipo) {
+      if (!status) return;
+      status.textContent = texto;
+      status.classList.remove("success", "error");
+      if (tipo) status.classList.add(tipo);
+    }
+
+    async function enviarViaWebhook(dados) {
+      const resp = await fetch(r.webhookUrl, {
+        method: "POST",
+        mode: "no-cors", // Google Apps Script Web Apps normalmente exigem isso
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(dados)
+      });
+      // com mode "no-cors" não dá pra ler o status da resposta — assume
+      // sucesso se o fetch não estourou exceção de rede.
+      return resp;
+    }
+
+    function enviarViaWhatsApp(dados) {
+      const c = cfg.contato || {};
+      if (!c.whatsapp) return false;
+      const texto = encodeURIComponent(
+        `Confirmação de presença — ${dados.nome}\n` +
+        `WhatsApp: ${dados.telefone}\n` +
+        `Vai comparecer: ${dados.confirmacao === "sim" ? "Sim" : "Não"}\n` +
+        `Acompanhantes: ${dados.acompanhantes}\n` +
+        (dados.mensagem ? `Mensagem: ${dados.mensagem}` : "")
+      );
+      window.open(`https://wa.me/${c.whatsapp}?text=${texto}`, "_blank", "noopener");
+      return true;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const dados = {
+        nome: (fd.get("nome") || "").toString().trim(),
+        telefone: (fd.get("telefone") || "").toString().trim(),
+        acompanhantes: (fd.get("acompanhantes") || "0").toString(),
+        confirmacao: (fd.get("confirmacao") || "sim").toString(),
+        mensagem: (fd.get("mensagem") || "").toString().trim()
+      };
+      if (!dados.nome || !dados.telefone) return;
+
+      if (submitBtn) submitBtn.disabled = true;
+      mostrarStatus("Enviando...", null);
+
+      try {
+        if (r.webhookUrl) {
+          await enviarViaWebhook(dados);
+          mostrarStatus("Presença confirmada! Obrigado por avisar. 🎉", "success");
+          form.reset();
+        } else {
+          // Sem backend configurado (config.rsvp.webhookUrl vazio):
+          // abre o WhatsApp com os dados preenchidos, pro casal receber
+          // a confirmação direto na conversa.
+          const enviado = enviarViaWhatsApp(dados);
+          mostrarStatus(
+            enviado
+              ? "Abrimos o WhatsApp pra você enviar a confirmação. 🎉"
+              : "Confirmação de presença ainda não está configurada — avise o casal diretamente.",
+            enviado ? "success" : "error"
+          );
+        }
+      } catch (err) {
+        mostrarStatus("Não foi possível enviar agora. Tente novamente em instantes.", "error");
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+
+  /* -----------------------------------------------------------------------
      12. DRESS CODE
   ----------------------------------------------------------------------- */
   function initDressCode() {
@@ -542,6 +632,7 @@
     initHistoria();
     initGaleria();
     initLocais();
+    initRSVP();
     initPresentes();
     initDressCode();
     initContato();
