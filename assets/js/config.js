@@ -53,6 +53,9 @@ const CONVITE_CONFIG = {
      Formato ISO 8601 — usado pela contagem regressiva.
   --------------------------------------------------------------------- */
   evento: {
+    // ATENÇÃO: esta é a data usada pela contagem regressiva. Mantenha
+    // igual à data da cerimônia abaixo (ajuste se cerimônia e recepção
+    // acontecerem em dias diferentes).
     dataISO: "2026-11-21T16:00:00",
     dataFormatada: "21 de Novembro de 2026",
     diaSemana: "Sábado",
@@ -122,13 +125,19 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   cerimonia: {
     titulo: "Cerimônia",
-    local: "Igreja Paróquia Santo Antônio de Pádua ",
-    endereco: "Rua S-1, Conj, Morada do Morro, Senador Canedo - Goiânia - GO",
+    local: "Igreja Paróquia Santo Antônio de Pádua",
+    endereco: "Rua S-1 c/ S-30, Qd. 77, Lt. 01, Conj. Morada do Morro, Senador Canedo - GO",
     data: "21 de Novembro de 2026",
     horario: "16h",
-    linkMaps: "https://maps.google.com/?q=Espaco+Villa+Toscana+Goiania",
-    latitude: -16.686810,
-    longitude: -49.113090, 
+    linkMaps: "https://maps.google.com/?q=Paroquia+Santo+Antonio+de+Padua+Senador+Canedo",
+    // TODO: estava com as MESMAS coordenadas da recepção (apontava pro
+    // Villa Toscana no mapa da cerimônia, endereço errado pros convidados).
+    // Preencha aqui a latitude/longitude reais da igreja: abra o local no
+    // Google Maps, clique com o botão direito no pino > copie as
+    // coordenadas que aparecem no topo do menu. Enquanto ficar null, o
+    // mapa embutido dessa seção simplesmente não é exibido (sem quebrar).
+    latitude: null,
+    longitude: null,
   },
 
   /* ---------------------------------------------------------------------
@@ -138,11 +147,14 @@ const CONVITE_CONFIG = {
     titulo: "Recepção",
     local: "Espaço Villa Toscana",
     endereco: "Rod. GO-070, km 6 — Zona Rural, Goiânia - GO",
-    data: "14 de Novembro de 2026",
+    // Ajustado para o mesmo dia da cerimônia (estava um dia inteiro
+    // divergente: "14 de Novembro" vs "21 de Novembro"). Troque se a
+    // recepção realmente for em outra data.
+    data: "21 de Novembro de 2026",
     horario: "19h00",
     linkMaps: "https://maps.google.com/?q=Espaco+Villa+Toscana+Goiania",
     latitude: -16.686810,
-    longitude: -49.113090, 
+    longitude: -49.113090,
   },
 
   /* ---------------------------------------------------------------------
@@ -151,7 +163,7 @@ const CONVITE_CONFIG = {
   presentes: {
     titulo: "Lista de Presentes",
     subtitulo: "Sua presença é o nosso maior presente. Mas se desejar nos presentear, preparamos esta lista com carinho.",
-    chavePix: "beatriz.rafael.casamento@email.com",
+    chavePix: "ana.maicon.casamento@email.com",
     tipoChave: "E-mail",
     itens: [
       {
@@ -217,7 +229,7 @@ const CONVITE_CONFIG = {
     titulo: "Contato",
     whatsapp: "5562999998888",
     telefone: "(62) 99999-8888",
-    instagram: "@beatrizerafael2026"
+    instagram: "@anaemaicon2026"
   },
 
   /* ---------------------------------------------------------------------
@@ -233,10 +245,30 @@ const CONVITE_CONFIG = {
      14. COMPARTILHAMENTO / SEO
   --------------------------------------------------------------------- */
   compartilhamento: {
-    titulo: "Beatriz & Rafael | 14 de Novembro de 2026",
-    descricao: "Você está convidado para celebrar o casamento de Beatriz e Rafael.",
+    // IMPORTANTE: como o site é 100% estático, o WhatsApp/Facebook/Instagram
+    // NÃO executam esse JS antes de gerar o preview do link — eles leem
+    // direto as tags <meta og:title>/<meta og:description> do index.html.
+    // Ou seja: se mudar titulo/descricao aqui, troque também as mesmas
+    // tags no <head> do index.html, senão o preview do link continua
+    // mostrando o texto genérico antigo.
+    titulo: "Ana & Maicon | 21 de Novembro de 2026",
+    descricao: "Você está convidado para celebrar o casamento de Ana e Maicon.",
     imagemPreview: "assets/images/hero.svg",
-    urlSite: "https://beatrizerafael.com.br"
+    urlSite: "https://anaemaicon.com.br"
+  },
+
+  /* ---------------------------------------------------------------------
+     15. CONFIRMAÇÃO DE PRESENÇA (RSVP)
+  --------------------------------------------------------------------- */
+  rsvp: {
+    ativo: true,
+    titulo: "Confirme sua Presença",
+    subtitulo: "Pedimos a gentileza de confirmar até a data abaixo, pra gente organizar tudo certinho.",
+    dataLimite: "01 de Novembro de 2026",
+    // Cole aqui a URL do seu Google Apps Script Web App (veja README,
+    // seção "Configurando o RSVP") para as respostas caírem numa planilha
+    // do Google Sheets. Deixe "" pra usar o fallback por WhatsApp.
+    webhookUrl: ""
   }
 
 };
