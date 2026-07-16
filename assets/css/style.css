@@ -750,14 +750,6 @@ input { font-family: inherit; }
   gap: 1.4rem;
   margin-top: 0.5rem;
 }
-.rsvp-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.4rem;
-}
-@media (max-width: 560px) {
-  .rsvp-row { grid-template-columns: 1fr; }
-}
 .rsvp-field { display: flex; flex-direction: column; gap: 0.5rem; }
 .rsvp-field label,
 .rsvp-radio-group legend {
