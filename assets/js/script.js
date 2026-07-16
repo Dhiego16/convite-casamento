@@ -1,8 +1,4 @@
-/* =========================================================================
-   script.js
-   Toda a lógica do convite. Lê exclusivamente de CONVITE_CONFIG
-   (definido em config.js). Não deve conter conteúdo hard-coded.
-   ========================================================================= */
+
 
 (() => {
   "use strict";
