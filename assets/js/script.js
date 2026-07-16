@@ -1,4 +1,8 @@
-
+/* =========================================================================
+   script.js
+   Toda a lógica do convite. Lê exclusivamente de CONVITE_CONFIG
+   (definido em config.js). Não deve conter conteúdo hard-coded.
+   ========================================================================= */
 
 (() => {
   "use strict";
@@ -304,15 +308,13 @@
     if (link && dados.linkMaps) link.setAttribute("href", dados.linkMaps);
 
     const mapEl = $(`#${prefixo}-map`);
-    if (mapEl && dados.latitude && dados.longitude) {
-      const bbox = 0.01;
-      const src = `https://www.openstreetmap.org/export/embed.html?bbox=${dados.longitude - bbox}%2C${dados.latitude - bbox}%2C${dados.longitude + bbox}%2C${dados.latitude + bbox}&layer=mapnik&marker=${dados.latitude}%2C${dados.longitude}`;
+    if (mapEl && dados.mapaQuery) {
+      const src = `https://maps.google.com/maps?q=${encodeURIComponent(dados.mapaQuery)}&output=embed`;
       mapEl.innerHTML = `<iframe src="${src}" loading="lazy" title="Mapa - ${dados.local || ''}"></iframe>`;
     }
   }
   function initLocais() {
     preencherLocal("cerimonia", cfg.cerimonia);
-    preencherLocal("recepcao", cfg.recepcao);
   }
 
   /* -----------------------------------------------------------------------
