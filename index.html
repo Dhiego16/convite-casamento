@@ -9,7 +9,9 @@
   <meta property="og:description" content="Você está convidado para celebrar o casamento de Ana e Maicon.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/images/hero.svg">
-
+  <!-- Estas tags acima precisam ficar sempre iguais aos valores de
+       config.js > compartilhamento, porque o WhatsApp/Facebook não
+       rodam o JS do site antes de montar o preview do link. -->
   <meta name="theme-color" content="#0a0a0b">
   <link rel="icon" href="data:,">
 
@@ -174,12 +176,11 @@
          06. CERIMÔNIA & RECEPÇÃO
     ============================================================ -->
     <section class="section location-section" id="local">
-      <div class="container">
+      <div class="container narrow">
         <p class="section-eyebrow" data-aos="fade-up">Onde estaremos</p>
-        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Cerimônia &amp; Recepção</h2>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Cerimônia</h2>
 
-        <div class="location-grid">
-          <!-- Cerimônia -->
+        <div class="location-grid location-grid-single">
           <article class="location-card" data-aos="fade-up" data-aos-delay="100">
             <span class="location-icon"><i class="fa-solid fa-church"></i></span>
             <h3 id="cerimonia-titulo">Cerimônia</h3>
@@ -190,21 +191,6 @@
             </p>
             <div class="location-map" id="cerimonia-map"></div>
             <a href="#" target="_blank" rel="noopener" class="btn btn-outline btn-small" id="cerimonia-maps-link">
-              <i class="fa-solid fa-location-dot"></i> Abrir no Google Maps
-            </a>
-          </article>
-
-          <!-- Recepção -->
-          <article class="location-card" data-aos="fade-up" data-aos-delay="200">
-            <span class="location-icon"><i class="fa-solid fa-glass-cheers"></i></span>
-            <h3 id="recepcao-titulo">Recepção</h3>
-            <p class="location-name" id="recepcao-local"></p>
-            <p class="location-address" id="recepcao-endereco"></p>
-            <p class="location-datetime">
-              <span id="recepcao-data"></span> · <span id="recepcao-horario"></span>
-            </p>
-            <div class="location-map" id="recepcao-map"></div>
-            <a href="#" target="_blank" rel="noopener" class="btn btn-outline btn-small" id="recepcao-maps-link">
               <i class="fa-solid fa-location-dot"></i> Abrir no Google Maps
             </a>
           </article>
