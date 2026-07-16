@@ -130,31 +130,10 @@ const CONVITE_CONFIG = {
     data: "21 de Novembro de 2026",
     horario: "16h",
     linkMaps: "https://maps.google.com/?q=Paroquia+Santo+Antonio+de+Padua+Senador+Canedo",
-    // TODO: estava com as MESMAS coordenadas da recepção (apontava pro
-    // Villa Toscana no mapa da cerimônia, endereço errado pros convidados).
-    // Preencha aqui a latitude/longitude reais da igreja: abra o local no
-    // Google Maps, clique com o botão direito no pino > copie as
-    // coordenadas que aparecem no topo do menu. Enquanto ficar null, o
-    // mapa embutido dessa seção simplesmente não é exibido (sem quebrar).
-    latitude: null,
-    longitude: null,
-  },
-
-  /* ---------------------------------------------------------------------
-     9. RECEPÇÃO
-  --------------------------------------------------------------------- */
-  recepcao: {
-    titulo: "Recepção",
-    local: "Espaço Villa Toscana",
-    endereco: "Rod. GO-070, km 6 — Zona Rural, Goiânia - GO",
-    // Ajustado para o mesmo dia da cerimônia (estava um dia inteiro
-    // divergente: "14 de Novembro" vs "21 de Novembro"). Troque se a
-    // recepção realmente for em outra data.
-    data: "21 de Novembro de 2026",
-    horario: "19h00",
-    linkMaps: "https://maps.google.com/?q=Espaco+Villa+Toscana+Goiania",
-    latitude: -16.686810,
-    longitude: -49.113090,
+    // Mapa embutido por busca de endereço (sem API key, sem precisar de
+    // latitude/longitude na mão — o Google localiza a partir do texto
+    // abaixo). Se quiser trocar o local, só editar essa linha.
+    mapaQuery: "Igreja Paróquia Santo Antônio de Pádua, Rua S-1 c/ S-30, Qd. 77, Conj. Morada do Morro, Senador Canedo - GO"
   },
 
   /* ---------------------------------------------------------------------
