@@ -742,6 +742,92 @@ input { font-family: inherit; }
 }
 
 /* -------------------------------------------------------------------------
+   16.5 CONFIRMAÇÃO DE PRESENÇA (RSVP)
+------------------------------------------------------------------------- */
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 0.5rem;
+}
+.rsvp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+@media (max-width: 560px) {
+  .rsvp-row { grid-template-columns: 1fr; }
+}
+.rsvp-field { display: flex; flex-direction: column; gap: 0.5rem; }
+.rsvp-field label,
+.rsvp-radio-group legend {
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+.rsvp-field input[type="text"],
+.rsvp-field input[type="tel"],
+.rsvp-field input[type="number"],
+.rsvp-field textarea {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  padding: 0.85rem 1rem;
+  font-size: var(--fs-body);
+  font-family: var(--font-body);
+  transition: border-color var(--dur-fast);
+}
+.rsvp-field input:focus,
+.rsvp-field textarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+.rsvp-field textarea { resize: vertical; min-height: 90px; }
+
+.rsvp-radio-group {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
+  align-items: center;
+}
+.rsvp-radio-group legend { padding: 0 0.3rem; }
+.rsvp-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  cursor: pointer;
+}
+.rsvp-radio input { accent-color: var(--color-gold); width: 16px; height: 16px; }
+
+.btn-primary {
+  background: var(--color-gold);
+  color: #14140f;
+  align-self: flex-start;
+  border: none;
+}
+.btn-primary:hover { background: var(--color-gold-soft); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+.btn-primary:disabled { opacity: 0.6; cursor: default; transform: none; box-shadow: none; }
+
+.rsvp-status {
+  font-size: 0.85rem;
+  min-height: 1.2em;
+  color: var(--color-text-muted);
+}
+.rsvp-status.success { color: var(--color-gold-soft); }
+.rsvp-status.error { color: #e07a6b; }
+
+/* -------------------------------------------------------------------------
    17. LISTA DE PRESENTES
 ------------------------------------------------------------------------- */
 .gifts-section { background: var(--color-bg-alt); }
