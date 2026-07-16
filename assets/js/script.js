@@ -428,7 +428,6 @@
       if (!c.whatsapp) return false;
       const texto = encodeURIComponent(
         `Confirmação de presença — ${dados.nome}\n` +
-        `WhatsApp: ${dados.telefone}\n` +
         `Vai comparecer: ${dados.confirmacao === "sim" ? "Sim" : "Não"}\n` +
         `Acompanhantes: ${dados.acompanhantes}\n` +
         (dados.mensagem ? `Mensagem: ${dados.mensagem}` : "")
@@ -442,12 +441,11 @@
       const fd = new FormData(form);
       const dados = {
         nome: (fd.get("nome") || "").toString().trim(),
-        telefone: (fd.get("telefone") || "").toString().trim(),
         acompanhantes: (fd.get("acompanhantes") || "0").toString(),
         confirmacao: (fd.get("confirmacao") || "sim").toString(),
         mensagem: (fd.get("mensagem") || "").toString().trim()
       };
-      if (!dados.nome || !dados.telefone) return;
+      if (!dados.nome) return;
 
       if (submitBtn) submitBtn.disabled = true;
       mostrarStatus("Enviando...", null);
@@ -552,11 +550,26 @@
     volume?.addEventListener("input", (e) => { audio.volume = Number(e.target.value); });
 
     if (m.autoplay) {
-      // navegadores modernos bloqueiam autoplay com som; tentamos e
-      // caímos graciosamente na primeira interação do usuário
-      play();
-      const tentarNaInteracao = () => { play(); document.removeEventListener("click", tentarNaInteracao); };
-      document.addEventListener("click", tentarNaInteracao, { once: true });
+      // Navegadores bloqueiam autoplay COM SOM sem gesto do usuário — mas
+      // autoplay MUDO é sempre permitido. Então a música já começa a
+      // tocar (muda) assim que o site abre, e é desmutada automaticamente
+      // no primeiro toque/clique/scroll/tecla do visitante — sem precisar
+      // caçar o botão de play.
+      audio.muted = true;
+      let autoplayOk = false;
+      audio.play().then(() => {
+        autoplayOk = true;
+        isPlaying = true;
+        toggle.classList.add("playing");
+      }).catch(() => { /* até mudo foi bloqueado; cai no fallback abaixo */ });
+
+      const eventosInteracao = ["click", "touchstart", "keydown", "scroll"];
+      const primeiraInteracao = () => {
+        audio.muted = false;
+        if (!autoplayOk) play(); // autoplay mudo foi bloqueado, toca agora
+        eventosInteracao.forEach((ev) => document.removeEventListener(ev, primeiraInteracao));
+      };
+      eventosInteracao.forEach((ev) => document.addEventListener(ev, primeiraInteracao, { passive: true }));
     }
   }
 
