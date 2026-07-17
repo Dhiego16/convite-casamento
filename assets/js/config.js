@@ -71,40 +71,6 @@ const CONVITE_CONFIG = {
   },
 
   /* ---------------------------------------------------------------------
-     6. NOSSA HISTÓRIA (timeline)
-  --------------------------------------------------------------------- */
-  historia: {
-    titulo: "Nossa História",
-    subtitulo: "Cada capítulo nos trouxe até aqui",
-    momentos: [
-      {
-        data: "Março de 2019",
-        titulo: "Onde tudo começou",
-        texto: "Um encontro marcado por amigos em comum se tornou o início de tudo. Bastou uma conversa para sabermos que ali havia algo diferente.",
-        imagem: "assets/images/historia-01.jpg"
-      },
-      {
-        data: "Dezembro de 2020",
-        titulo: "Primeira viagem juntos",
-        texto: "Trocamos a rotina por estradas desconhecidas e descobrimos que os melhores lugares são aqueles que vivemos em boa companhia.",
-        imagem: "assets/images/historia-02.jpeg"
-      },
-      {
-        data: "Julho de 2023",
-        titulo: "Nossa casa",
-        texto: "Decidimos construir um lar. Entre caixas de mudança e novos hábitos, aprendemos o valor de fazer da rotina algo especial.",
-        imagem: "assets/images/historia-03.jpg"
-      },
-      {
-        data: "Fevereiro de 2026",
-        titulo: "O pedido",
-        texto: "Sob o céu que testemunhou tantos dos nossos momentos, um pedido, um sim, e a certeza de que o próximo passo seria para sempre.",
-        imagem: "assets/images/historia-04.png"
-      }
-    ]
-  },
-
-  /* ---------------------------------------------------------------------
      7. GALERIA DE FOTOS
   --------------------------------------------------------------------- */
   galeria: {
