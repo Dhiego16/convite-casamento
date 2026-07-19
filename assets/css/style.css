@@ -973,7 +973,7 @@ input { font-family: inherit; }
 .monogram-svg-footer { width: 70px; margin: 0 auto 1rem; opacity: 0.7; }
 .monogram-text-footer {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: bold;
   font-size: 1.6rem;
   fill: var(--color-gold);
 }
