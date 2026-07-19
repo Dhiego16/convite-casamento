@@ -17,7 +17,7 @@ const CONVITE_CONFIG = {
       inicial: "A"
     },
     noivo: {
-      nomeCompleto: "Maicon",
+      nomeCompleto: "Maicon Miranda",
       primeiroNome: "Maicon",
       inicial: "M"
     },
@@ -77,12 +77,12 @@ const CONVITE_CONFIG = {
     titulo: "Galeria",
     subtitulo: "Momentos que guardamos com carinho",
     fotos: [
-      { src: "assets/images/galeria-01.jpg", legenda: "Ensaio pré-wedding" },
-      { src: "assets/images/galeria-02.jpg", legenda: "Viagem à Serra" },
-      { src: "assets/images/galeria-03.jpg", legenda: "Aniversário de namoro" },
-      { src: "assets/images/galeria-04.jpg", legenda: "Pedido de casamento" },
-      { src: "assets/images/galeria-05.jpg", legenda: "Em casa" },
-      { src: "assets/images/galeria-06.jpg", legenda: "Ensaio pré-wedding" }
+      { src: "assets/images/galeria-01.jpg"},
+      { src: "assets/images/galeria-02.jpg"},
+      { src: "assets/images/galeria-03.jpg"},
+      { src: "assets/images/galeria-04.jpg"},
+      { src: "assets/images/galeria-05.jpg"},
+      { src: "assets/images/galeria-06.jpg"}
     ]
   },
 
@@ -172,9 +172,8 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   contato: {
     titulo: "Contato",
-    whatsapp: "5562999998888",
-    telefone: "(62) 99999-8888",
-    instagram: "@anaemaicon2026"
+    whatsapp: "+5562994415344",
+    telefone: "(62) 99441-5344",
   },
 
   /* ---------------------------------------------------------------------
