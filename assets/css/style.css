@@ -225,165 +225,6 @@ input { font-family: inherit; }
 @keyframes loading-progress { to { width: 100%; } }
 
 /* -------------------------------------------------------------------------
-   6.5 CARTA / CONVITE — ANIMAÇÃO DE ABERTURA
-------------------------------------------------------------------------- */
-#envelope-screen {
-  position: fixed;
-  inset: 0;
-  z-index: 9998; /* fica logo abaixo do #loading-screen (9999) enquanto a página carrega */
-  background: radial-gradient(circle at 50% 40%, var(--color-bg-alt), var(--color-bg));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.9s var(--ease-premium), visibility 0.9s;
-}
-#envelope-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-.envelope-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.6rem;
-  perspective: 1400px;
-}
-
-.envelope {
-  position: relative;
-  width: clamp(230px, 60vw, 320px);
-  aspect-ratio: 3 / 2;
-  transform-style: preserve-3d;
-}
-
-.envelope-back {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(160deg, var(--color-bg-elevated), var(--color-surface-strong));
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-soft);
-  z-index: 1;
-}
-/* linhas de dobra decorativas do envelope (bolso inferior) */
-.envelope-back::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 60%;
-  background: linear-gradient(155deg, transparent 49.3%, rgba(245,243,238,0.06) 50%, transparent 50.7%),
-              linear-gradient(205deg, transparent 49.3%, rgba(245,243,238,0.06) 50%, transparent 50.7%);
-  pointer-events: none;
-}
-
-.envelope-letter {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  bottom: 6%;
-  height: 84%;
-  border-radius: var(--radius-sm);
-  background: var(--color-bg);
-  border: 1px solid rgba(201, 168, 104, 0.25);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 1rem;
-  text-align: center;
-  z-index: 2;
-  transform: translateY(6%);
-  opacity: 0;
-  transition: transform 1s 0.35s var(--ease-premium), opacity 0.8s 0.35s var(--ease-premium);
-}
-.letter-eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-.letter-title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
-  color: var(--color-gold-soft);
-}
-.letter-names {
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
-  color: var(--color-text-dim);
-  letter-spacing: 0.05em;
-}
-
-.envelope-flap {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 58%;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  background: linear-gradient(200deg, var(--color-bg-elevated), #221f1a);
-  border-top: 1px solid var(--color-border);
-  transform-origin: top center;
-  transform: rotateX(0deg);
-  backface-visibility: hidden;
-  transition: transform 0.9s var(--ease-premium);
-  z-index: 3;
-}
-
-.envelope-seal {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 35% 30%, var(--color-gold-soft), var(--color-gold) 70%);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--color-bg);
-  transition: opacity 0.4s var(--ease-premium), transform 0.5s var(--ease-premium);
-}
-.envelope-seal::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  border: 1px dashed rgba(10,10,11,0.35);
-}
-
-.envelope.open .envelope-flap {
-  transform: rotateX(-180deg);
-}
-.envelope.open .envelope-seal {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.4);
-}
-.envelope.open .envelope-letter {
-  transform: translateY(-58%);
-  opacity: 1;
-}
-
-.envelope-hint {
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  animation: pulse-hint 2s ease-in-out infinite;
-}
-.envelope.open ~ .envelope-hint,
-#envelope-screen.opened .envelope-hint { opacity: 0; }
-@keyframes pulse-hint { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-/* -------------------------------------------------------------------------
    7. PLAYER DE MÚSICA FLUTUANTE
 ------------------------------------------------------------------------- */
 .music-player {
@@ -522,7 +363,7 @@ input { font-family: inherit; }
 .monogram-svg-hero { width: 100%; overflow: visible; }
 .monogram-text-hero {
   font-family: var(--font-display);
-  font-style: bold;
+  font-style: italic;
   font-size: 2.4rem;
   fill: var(--color-gold-soft);
   opacity: 0.85;
@@ -1132,7 +973,7 @@ input { font-family: inherit; }
 .monogram-svg-footer { width: 70px; margin: 0 auto 1rem; opacity: 0.7; }
 .monogram-text-footer {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: bold;
   font-size: 1.6rem;
   fill: var(--color-gold);
 }
