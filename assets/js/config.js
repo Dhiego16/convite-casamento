@@ -44,7 +44,7 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   hero: {
     imagemFundo: "assets/images/hero.jpg",
-    frase: "Depois de tudo, escolhemos um ao outro. Todos os dias, escolheríamos de novo.",
+    frase: "Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto - Isaías 41:20",
     textoBotao: "Ver Convite"
   },
 
