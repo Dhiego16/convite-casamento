@@ -53,6 +53,9 @@ const CONVITE_CONFIG = {
      Formato ISO 8601 — usado pela contagem regressiva.
   --------------------------------------------------------------------- */
   evento: {
+    // ATENÇÃO: esta é a data usada pela contagem regressiva. Mantenha
+    // igual à data da cerimônia abaixo (ajuste se cerimônia e recepção
+    // acontecerem em dias diferentes).
     dataISO: "2026-11-21T16:00:00",
     dataFormatada: "21 de Novembro de 2026",
     diaSemana: "Sábado",
@@ -65,40 +68,6 @@ const CONVITE_CONFIG = {
   mensagemAbertura: {
     titulo: "Vamos nos casar",
     texto: "Com o coração transbordando de alegria e a certeza de que encontramos, um no outro, o nosso melhor lugar do mundo, convidamos você para celebrar conosco o início dessa nova jornada."
-  },
-
-  /* ---------------------------------------------------------------------
-     6. NOSSA HISTÓRIA (timeline)
-  --------------------------------------------------------------------- */
-  historia: {
-    titulo: "Nossa História",
-    subtitulo: "Cada capítulo nos trouxe até aqui",
-    momentos: [
-      {
-        data: "Março de 2019",
-        titulo: "Onde tudo começou",
-        texto: "Um encontro marcado por amigos em comum se tornou o início de tudo. Bastou uma conversa para sabermos que ali havia algo diferente.",
-        imagem: "assets/images/historia-01.jpg"
-      },
-      {
-        data: "Dezembro de 2020",
-        titulo: "Primeira viagem juntos",
-        texto: "Trocamos a rotina por estradas desconhecidas e descobrimos que os melhores lugares são aqueles que vivemos em boa companhia.",
-        imagem: "assets/images/historia-02.jpeg"
-      },
-      {
-        data: "Julho de 2023",
-        titulo: "Nossa casa",
-        texto: "Decidimos construir um lar. Entre caixas de mudança e novos hábitos, aprendemos o valor de fazer da rotina algo especial.",
-        imagem: "assets/images/historia-03.jpg"
-      },
-      {
-        data: "Fevereiro de 2026",
-        titulo: "O pedido",
-        texto: "Sob o céu que testemunhou tantos dos nossos momentos, um pedido, um sim, e a certeza de que o próximo passo seria para sempre.",
-        imagem: "assets/images/historia-04.png"
-      }
-    ]
   },
 
   /* ---------------------------------------------------------------------
@@ -122,27 +91,15 @@ const CONVITE_CONFIG = {
   --------------------------------------------------------------------- */
   cerimonia: {
     titulo: "Cerimônia",
-    local: "Igreja Paróquia Santo Antônio de Pádua ",
-    endereco: "Rua S-1, Conj, Morada do Morro, Senador Canedo - Goiânia - GO",
+    local: "Igreja Paróquia Santo Antônio de Pádua",
+    endereco: "Rua S-1 c/ S-30, Qd. 77, Lt. 01, Conj. Morada do Morro, Senador Canedo - GO",
     data: "21 de Novembro de 2026",
     horario: "16h",
-    linkMaps: "https://maps.google.com/?q=Espaco+Villa+Toscana+Goiania",
-    latitude: -16.686810,
-    longitude: -49.113090, 
-  },
-
-  /* ---------------------------------------------------------------------
-     9. RECEPÇÃO
-  --------------------------------------------------------------------- */
-  recepcao: {
-    titulo: "Recepção",
-    local: "Espaço Villa Toscana",
-    endereco: "Rod. GO-070, km 6 — Zona Rural, Goiânia - GO",
-    data: "14 de Novembro de 2026",
-    horario: "19h00",
-    linkMaps: "https://maps.google.com/?q=Espaco+Villa+Toscana+Goiania",
-    latitude: -16.686810,
-    longitude: -49.113090, 
+    linkMaps: "https://maps.google.com/?q=Paroquia+Santo+Antonio+de+Padua+Senador+Canedo",
+    // Mapa embutido por busca de endereço (sem API key, sem precisar de
+    // latitude/longitude na mão — o Google localiza a partir do texto
+    // abaixo). Se quiser trocar o local, só editar essa linha.
+    mapaQuery: "Igreja Paróquia Santo Antônio de Pádua, Rua S-1 c/ S-30, Qd. 77, Conj. Morada do Morro, Senador Canedo - GO"
   },
 
   /* ---------------------------------------------------------------------
@@ -151,7 +108,7 @@ const CONVITE_CONFIG = {
   presentes: {
     titulo: "Lista de Presentes",
     subtitulo: "Sua presença é o nosso maior presente. Mas se desejar nos presentear, preparamos esta lista com carinho.",
-    chavePix: "beatriz.rafael.casamento@email.com",
+    chavePix: "ana.maicon.casamento@email.com",
     tipoChave: "E-mail",
     itens: [
       {
@@ -217,7 +174,7 @@ const CONVITE_CONFIG = {
     titulo: "Contato",
     whatsapp: "5562999998888",
     telefone: "(62) 99999-8888",
-    instagram: "@beatrizerafael2026"
+    instagram: "@anaemaicon2026"
   },
 
   /* ---------------------------------------------------------------------
@@ -233,10 +190,30 @@ const CONVITE_CONFIG = {
      14. COMPARTILHAMENTO / SEO
   --------------------------------------------------------------------- */
   compartilhamento: {
-    titulo: "Beatriz & Rafael | 14 de Novembro de 2026",
-    descricao: "Você está convidado para celebrar o casamento de Beatriz e Rafael.",
+    // IMPORTANTE: como o site é 100% estático, o WhatsApp/Facebook/Instagram
+    // NÃO executam esse JS antes de gerar o preview do link — eles leem
+    // direto as tags <meta og:title>/<meta og:description> do index.html.
+    // Ou seja: se mudar titulo/descricao aqui, troque também as mesmas
+    // tags no <head> do index.html, senão o preview do link continua
+    // mostrando o texto genérico antigo.
+    titulo: "Ana & Maicon | 21 de Novembro de 2026",
+    descricao: "Você está convidado para celebrar o casamento de Ana e Maicon.",
     imagemPreview: "assets/images/hero.svg",
-    urlSite: "https://beatrizerafael.com.br"
+    urlSite: "https://anaemaicon.com.br"
+  },
+
+  /* ---------------------------------------------------------------------
+     15. CONFIRMAÇÃO DE PRESENÇA (RSVP)
+  --------------------------------------------------------------------- */
+  rsvp: {
+    ativo: true,
+    titulo: "Confirme sua Presença",
+    subtitulo: "Pedimos a gentileza de confirmar até a data abaixo, pra gente organizar tudo certinho.",
+    dataLimite: "01 de Novembro de 2026",
+    // Cole aqui a URL do seu Google Apps Script Web App (veja README,
+    // seção "Configurando o RSVP") para as respostas caírem numa planilha
+    // do Google Sheets. Deixe "" pra usar o fallback por WhatsApp.
+    webhookUrl: ""
   }
 
 };

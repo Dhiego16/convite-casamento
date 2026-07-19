@@ -308,15 +308,13 @@
     if (link && dados.linkMaps) link.setAttribute("href", dados.linkMaps);
 
     const mapEl = $(`#${prefixo}-map`);
-    if (mapEl && dados.latitude && dados.longitude) {
-      const bbox = 0.01;
-      const src = `https://www.openstreetmap.org/export/embed.html?bbox=${dados.longitude - bbox}%2C${dados.latitude - bbox}%2C${dados.longitude + bbox}%2C${dados.latitude + bbox}&layer=mapnik&marker=${dados.latitude}%2C${dados.longitude}`;
+    if (mapEl && dados.mapaQuery) {
+      const src = `https://maps.google.com/maps?q=${encodeURIComponent(dados.mapaQuery)}&output=embed`;
       mapEl.innerHTML = `<iframe src="${src}" loading="lazy" title="Mapa - ${dados.local || ''}"></iframe>`;
     }
   }
   function initLocais() {
     preencherLocal("cerimonia", cfg.cerimonia);
-    preencherLocal("recepcao", cfg.recepcao);
   }
 
   /* -----------------------------------------------------------------------
@@ -384,6 +382,94 @@
 
     $$("[data-pix-btn]", grid).forEach((btn) => {
       btn.addEventListener("click", copiarPix);
+    });
+  }
+
+  /* -----------------------------------------------------------------------
+     11.5 CONFIRMAÇÃO DE PRESENÇA (RSVP)
+  ----------------------------------------------------------------------- */
+  function initRSVP() {
+    const r = cfg.rsvp || {};
+    const section = $("#rsvp");
+    if (!r.ativo) { section?.remove(); return; }
+
+    const set = (id, val) => { const el = $(`#${id}`); if (el) el.textContent = val; };
+    set("rsvp-titulo", r.titulo);
+    set("rsvp-subtitulo", r.subtitulo && r.dataLimite ? `${r.subtitulo} (até ${r.dataLimite})` : (r.subtitulo || ""));
+
+    const form = $("#rsvp-form");
+    const status = $("#rsvp-status");
+    const submitBtn = $("#rsvp-submit");
+    if (!form) return;
+
+    function mostrarStatus(texto, tipo) {
+      if (!status) return;
+      status.textContent = texto;
+      status.classList.remove("success", "error");
+      if (tipo) status.classList.add(tipo);
+    }
+
+    async function enviarViaWebhook(dados) {
+      const resp = await fetch(r.webhookUrl, {
+        method: "POST",
+        mode: "no-cors", // Google Apps Script Web Apps normalmente exigem isso
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(dados)
+      });
+      // com mode "no-cors" não dá pra ler o status da resposta — assume
+      // sucesso se o fetch não estourou exceção de rede.
+      return resp;
+    }
+
+    function enviarViaWhatsApp(dados) {
+      const c = cfg.contato || {};
+      if (!c.whatsapp) return false;
+      const texto = encodeURIComponent(
+        `Confirmação de presença — ${dados.nome}\n` +
+        `Vai comparecer: ${dados.confirmacao === "sim" ? "Sim" : "Não"}\n` +
+        `Acompanhantes: ${dados.acompanhantes}\n` +
+        (dados.mensagem ? `Mensagem: ${dados.mensagem}` : "")
+      );
+      window.open(`https://wa.me/${c.whatsapp}?text=${texto}`, "_blank", "noopener");
+      return true;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const dados = {
+        nome: (fd.get("nome") || "").toString().trim(),
+        acompanhantes: (fd.get("acompanhantes") || "0").toString(),
+        confirmacao: (fd.get("confirmacao") || "sim").toString(),
+        mensagem: (fd.get("mensagem") || "").toString().trim()
+      };
+      if (!dados.nome) return;
+
+      if (submitBtn) submitBtn.disabled = true;
+      mostrarStatus("Enviando...", null);
+
+      try {
+        if (r.webhookUrl) {
+          await enviarViaWebhook(dados);
+          mostrarStatus("Presença confirmada! Obrigado por avisar. 🎉", "success");
+          form.reset();
+        } else {
+          // Sem backend configurado (config.rsvp.webhookUrl vazio):
+          // abre o WhatsApp com os dados preenchidos, pro casal receber
+          // a confirmação direto na conversa.
+          const enviado = enviarViaWhatsApp(dados);
+          mostrarStatus(
+            enviado
+              ? "Abrimos o WhatsApp pra você enviar a confirmação. 🎉"
+              : "Confirmação de presença ainda não está configurada — avise o casal diretamente.",
+            enviado ? "success" : "error"
+          );
+        }
+      } catch (err) {
+        mostrarStatus("Não foi possível enviar agora. Tente novamente em instantes.", "error");
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 
@@ -462,11 +548,26 @@
     volume?.addEventListener("input", (e) => { audio.volume = Number(e.target.value); });
 
     if (m.autoplay) {
-      // navegadores modernos bloqueiam autoplay com som; tentamos e
-      // caímos graciosamente na primeira interação do usuário
-      play();
-      const tentarNaInteracao = () => { play(); document.removeEventListener("click", tentarNaInteracao); };
-      document.addEventListener("click", tentarNaInteracao, { once: true });
+      // Navegadores bloqueiam autoplay COM SOM sem gesto do usuário — mas
+      // autoplay MUDO é sempre permitido. Então a música já começa a
+      // tocar (muda) assim que o site abre, e é desmutada automaticamente
+      // no primeiro toque/clique/scroll/tecla do visitante — sem precisar
+      // caçar o botão de play.
+      audio.muted = true;
+      let autoplayOk = false;
+      audio.play().then(() => {
+        autoplayOk = true;
+        isPlaying = true;
+        toggle.classList.add("playing");
+      }).catch(() => { /* até mudo foi bloqueado; cai no fallback abaixo */ });
+
+      const eventosInteracao = ["click", "touchstart", "keydown", "scroll"];
+      const primeiraInteracao = () => {
+        audio.muted = false;
+        if (!autoplayOk) play(); // autoplay mudo foi bloqueado, toca agora
+        eventosInteracao.forEach((ev) => document.removeEventListener(ev, primeiraInteracao));
+      };
+      eventosInteracao.forEach((ev) => document.addEventListener(ev, primeiraInteracao, { passive: true }));
     }
   }
 
@@ -542,6 +643,7 @@
     initHistoria();
     initGaleria();
     initLocais();
+    initRSVP();
     initPresentes();
     initDressCode();
     initContato();
