@@ -196,7 +196,7 @@ input { font-family: inherit; }
 .monogram-svg { width: 100%; overflow: visible; }
 .monogram-text {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: bold;
   font-size: 2.6rem;
   fill: none;
   stroke: var(--color-gold);
@@ -432,7 +432,7 @@ input { font-family: inherit; }
   color: var(--color-text-muted);
   font-weight: 300;
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: bold;
 }
 
 /* -------------------------------------------------------------------------
