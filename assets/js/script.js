@@ -72,6 +72,45 @@
   /* -----------------------------------------------------------------------
      3.5 CARTA / CONVITE — ANIMAÇÃO DE ABERTURA
   ----------------------------------------------------------------------- */
+  /* -----------------------------------------------------------------------
+     3.4 FANFARRA (efeito sonoro sintetizado — sem depender de arquivo externo)
+  ----------------------------------------------------------------------- */
+  function tocarFanfarra() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      // Sequência ascendente estilo "tã-dã!" de trombeta: C5, E5, G5, C6
+      const notas = [523.25, 659.25, 783.99, 1046.5];
+      const duracao = 0.14;
+      notas.forEach((freq, i) => {
+        const t0 = ctx.currentTime + i * duracao;
+        const ehUltima = i === notas.length - 1;
+        const fimEnvelope = t0 + duracao * (ehUltima ? 3.2 : 1.3);
+
+        // dois osciladores levemente desafinados entre si = timbre mais
+        // "de metal" do que um tom puro de oscilador só
+        [0, 4].forEach((detune) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(freq, t0);
+          osc.detune.setValueAtTime(detune, t0);
+          gain.gain.setValueAtTime(0, t0);
+          gain.gain.linearRampToValueAtTime(0.14, t0 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, fimEnvelope);
+          osc.connect(gain).connect(ctx.destination);
+          osc.start(t0);
+          osc.stop(fimEnvelope + 0.05);
+        });
+      });
+      const duracaoTotal = (notas.length * duracao + 1.2) * 1000;
+      setTimeout(() => ctx.close().catch(() => {}), duracaoTotal);
+    } catch (e) {
+      // Web Audio indisponível nesse navegador — segue sem som, sem quebrar nada
+    }
+  }
+
   function initEnvelope() {
     const screen = $("#envelope-screen");
     const trigger = $("#envelope-trigger");
@@ -92,6 +131,7 @@
       if (aberto) return;
       aberto = true;
       trigger.classList.add("open");
+      tocarFanfarra();
       // some depois da animação da carta subir (~1.3s), revelando o site
       setTimeout(() => {
         screen.classList.add("hidden");
