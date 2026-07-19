@@ -63,90 +63,11 @@
       const wait = Math.max(0, minDuration - elapsed);
       setTimeout(() => {
         el.classList.add("hidden");
-        // overflow continua travado — a carta assume o controle da rolagem
-        // a partir daqui (ver initEnvelope)
+        document.body.style.overflow = "";
       }, wait);
     });
-  }
-
-  /* -----------------------------------------------------------------------
-     3.5 CARTA / CONVITE — ANIMAÇÃO DE ABERTURA
-  ----------------------------------------------------------------------- */
-  /* -----------------------------------------------------------------------
-     3.4 FANFARRA (efeito sonoro sintetizado — sem depender de arquivo externo)
-  ----------------------------------------------------------------------- */
-  function tocarFanfarra() {
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = new AudioCtx();
-      // Sequência ascendente estilo "tã-dã!" de trombeta: C5, E5, G5, C6
-      const notas = [523.25, 659.25, 783.99, 1046.5];
-      const duracao = 0.14;
-      notas.forEach((freq, i) => {
-        const t0 = ctx.currentTime + i * duracao;
-        const ehUltima = i === notas.length - 1;
-        const fimEnvelope = t0 + duracao * (ehUltima ? 3.2 : 1.3);
-
-        // dois osciladores levemente desafinados entre si = timbre mais
-        // "de metal" do que um tom puro de oscilador só
-        [0, 4].forEach((detune) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = "sawtooth";
-          osc.frequency.setValueAtTime(freq, t0);
-          osc.detune.setValueAtTime(detune, t0);
-          gain.gain.setValueAtTime(0, t0);
-          gain.gain.linearRampToValueAtTime(0.14, t0 + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, fimEnvelope);
-          osc.connect(gain).connect(ctx.destination);
-          osc.start(t0);
-          osc.stop(fimEnvelope + 0.05);
-        });
-      });
-      const duracaoTotal = (notas.length * duracao + 1.2) * 1000;
-      setTimeout(() => ctx.close().catch(() => {}), duracaoTotal);
-    } catch (e) {
-      // Web Audio indisponível nesse navegador — segue sem som, sem quebrar nada
-    }
-  }
-
-  function initEnvelope() {
-    const screen = $("#envelope-screen");
-    const trigger = $("#envelope-trigger");
-    if (!screen || !trigger) { document.body.style.overflow = ""; return; }
-
-    const noivos = cfg.noivos || {};
-    const namesEl = $("#envelope-names");
-    if (namesEl) {
-      const a = noivos.noiva?.primeiroNome;
-      const b = noivos.noivo?.primeiroNome;
-      namesEl.textContent = (a && b) ? `${a} & ${b}` : (noivos.monograma || "");
-    }
-    const sealEl = $("#envelope-seal");
-    if (sealEl) sealEl.textContent = noivos.monograma || "";
-
-    let aberto = false;
-    function abrirCarta() {
-      if (aberto) return;
-      aberto = true;
-      trigger.classList.add("open");
-      tocarFanfarra();
-      // some depois da animação da carta subir (~1.3s), revelando o site
-      setTimeout(() => {
-        screen.classList.add("hidden");
-        document.body.style.overflow = "";
-      }, 1300);
-    }
-
-    trigger.addEventListener("click", abrirCarta);
-    trigger.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrirCarta(); }
-    });
-
-    // rede de segurança: se ninguém tocar na carta, abre sozinha depois
-    // de um tempo pra não deixar o visitante preso na tela
-    setTimeout(abrirCarta, 9000);
+    // fallback caso 'load' já tenha disparado
+    setTimeout(() => { document.body.style.overflow = ""; }, minDuration + 600);
   }
 
   /* -----------------------------------------------------------------------
@@ -715,7 +636,6 @@
     aplicarTema();
     aplicarSEO();
     initLoading();
-    initEnvelope();
     initCursor();
     initHero();
     initMensagem();
