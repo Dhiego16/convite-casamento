@@ -43,6 +43,25 @@
   </div>
 
   <!-- ============================================================
+       CARTA / CONVITE — ANIMAÇÃO DE ABERTURA
+  ============================================================ -->
+  <div id="envelope-screen" aria-hidden="true">
+    <div class="envelope-wrap">
+      <button type="button" id="envelope-trigger" class="envelope" aria-label="Toque para abrir o convite">
+        <span class="envelope-back"></span>
+        <span class="envelope-letter">
+          <span class="letter-eyebrow">Você foi</span>
+          <span class="letter-title">Convidado!</span>
+          <span class="letter-names" id="envelope-names"></span>
+        </span>
+        <span class="envelope-flap"></span>
+        <span class="envelope-seal" id="envelope-seal"></span>
+      </button>
+      <p class="envelope-hint">Toque para abrir</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
        CURSOR PERSONALIZADO (opcional — desktop apenas)
   ============================================================ -->
   <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
@@ -138,6 +157,18 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================================================
+         04. NOSSA HISTÓRIA
+    ============================================================ -->
+    <section class="section history-section" id="historia">
+      <div class="container">
+        <p class="section-eyebrow" data-aos="fade-up" id="historia-subtitulo">Cada capítulo nos trouxe até aqui</p>
+        <h2 class="section-title" data-aos="fade-up" data-aos-delay="100" id="historia-titulo">Nossa História</h2>
+        <div class="timeline" id="timeline-container"></div>
+      </div>
+    </section>
+
     <!-- ============================================================
          05. GALERIA
     ============================================================ -->
@@ -300,7 +331,7 @@
   ============================================================ -->
   <footer class="footer">
     <svg viewBox="0 0 200 100" class="monogram-svg-footer">
-      <text x="100" y="65" text-anchor="middle" class="monogram-text-footer" id="footer-monogram">A &amp; M</text>
+      <text x="100" y="65" text-anchor="middle" class="monogram-text-footer" id="footer-monogram">B &amp; R</text>
     </svg>
     <p id="footer-names">Ana &amp; Maicon</p>
     <p class="footer-date" id="footer-data">21 · 11 · 2026</p>
