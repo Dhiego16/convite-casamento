@@ -112,47 +112,15 @@ const CONVITE_CONFIG = {
     tipoChave: "E-mail",
     itens: [
       {
-        nome: "Lua de Mel",
-        descricao: "Contribua com nossa viagem dos sonhos",
-        valor: 500.00,
+        nome: "Jogo de Cama",
         imagem: "assets/images/presente-01.svg",
         linkExterno: null
       },
       {
-        nome: "Jogo de Jantar",
-        descricao: "Porcelana para os jantares em família",
-        valor: 350.00,
-        imagem: "assets/images/presente-02.svg",
+        nome: "Jogo de Cama",
+        imagem: "assets/images/presente-01.svg",
         linkExterno: null
       },
-      {
-        nome: "Enxoval de Cama",
-        descricao: "Roupa de cama para o novo lar",
-        valor: 280.00,
-        imagem: "assets/images/presente-03.svg",
-        linkExterno: null
-      },
-      {
-        nome: "Eletrodomésticos",
-        descricao: "Ajude a equipar nossa cozinha",
-        valor: 420.00,
-        imagem: "assets/images/presente-04.svg",
-        linkExterno: "https://www.exemplo-loja.com.br/lista/beatriz-rafael"
-      },
-      {
-        nome: "Decoração",
-        descricao: "Detalhes que farão da nossa casa um lar",
-        valor: 190.00,
-        imagem: "assets/images/presente-05.svg",
-        linkExterno: null
-      },
-      {
-        nome: "Mobília Sala",
-        descricao: "Contribua para a nossa sala de estar",
-        valor: 600.00,
-        imagem: "assets/images/presente-06.svg",
-        linkExterno: null
-      }
     ]
   },
 
@@ -198,7 +166,6 @@ const CONVITE_CONFIG = {
     titulo: "Ana & Maicon | 21 de Novembro de 2026",
     descricao: "Você está convidado para celebrar o casamento de Ana e Maicon.",
     imagemPreview: "assets/images/hero.svg",
-    urlSite: "https://anaemaicon.com.br"
   },
 
   /* ---------------------------------------------------------------------
