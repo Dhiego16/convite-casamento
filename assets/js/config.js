@@ -120,7 +120,7 @@ const CONVITE_CONFIG = {
         nome: "Jogo de Cama",
         imagem: "assets/images/presente-01.svg",
         linkExterno: null
-      },
+      }
     ]
   },
 
