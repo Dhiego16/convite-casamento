@@ -128,7 +128,7 @@ const CONVITE_CONFIG = {
      11. DRESS CODE (opcional — defina "ativo: false" para ocultar)
   --------------------------------------------------------------------- */
   dressCode: {
-    ativo: false,
+    ativo: true,
     titulo: "Dress Code",
     texto: "Traje Esporte Fino / Cerimônia",
     observacao: "Pedimos gentilmente que se evite o uso da cor branca, reservada à noiva.",
