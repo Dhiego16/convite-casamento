@@ -119,31 +119,31 @@ const CONVITE_CONFIG = {
         linkExterno: null
       },
       {
-        nome: "Enxoval de Cama",
+        nome: "Jogo de Pratos",
         descricao: "Roupa de cama para o novo lar",
         valor: 280.00,
         imagem: "assets/images/presente-03.svg",
         linkExterno: null
       },
       {
-        nome: "Eletrodomésticos",
+        nome: "Jogo de Xícaras",
         descricao: "Ajude a equipar nossa cozinha",
         valor: 420.00,
         imagem: "assets/images/presente-04.svg",
         linkExterno: "https://www.exemplo-loja.com.br/lista/beatriz-rafael"
       },
       {
-        nome: "Decoração",
+        nome: "Escorredor de Louça",
         descricao: "Detalhes que farão da nossa casa um lar",
         valor: 190.00,
         imagem: "assets/images/presente-05.svg",
         linkExterno: null
       },
       {
-        nome: "Mobília Sala",
+        nome: "Batedeira",
         descricao: "Contribua para a nossa sala de estar",
         valor: 600.00,
-        imagem: "assets/images/presente-06.svg",
+        imagem: "assets/images/batedeira.png",
         linkExterno: null
       }
     ]
