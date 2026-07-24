@@ -112,10 +112,10 @@ const CONVITE_CONFIG = {
     tipoChave: "E-mail",
     itens: [
       {
-        nome: "Jogo de Jantar",
+        nome: "Jogo de Copo",
         descricao: "Porcelana para os jantares em família",
         valor: 350.00,
-        imagem: "assets/images/presente-02.svg",
+        imagem: "assets/images/jogodecopo.png",
         linkExterno: null
       },
       {
