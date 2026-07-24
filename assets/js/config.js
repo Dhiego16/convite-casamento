@@ -112,10 +112,8 @@ const CONVITE_CONFIG = {
     tipoChave: "E-mail",
     itens: [
       {
-        nome: "Lua de Mel",
-        descricao: "Contribua com nossa viagem dos sonhos",
-        valor: 500.00,
-        imagem: "assets/images/presente-01.svg",
+        nome: "Jogo de Copo",
+        imagem: "assets/images/jogodecopo.jpeg",
         linkExterno: null
       },
       {
