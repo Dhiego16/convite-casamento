@@ -113,6 +113,7 @@ const CONVITE_CONFIG = {
     itens: [
       {
         nome: "Jogo de Copo",
+        valor: null,
         imagem: "assets/images/jogodecopo.png",
         linkExterno: null
       },
