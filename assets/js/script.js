@@ -18,7 +18,7 @@
   ----------------------------------------------------------------------- */
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const formatBRL = (n) => n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const formatBRL = (n) => (Number(n) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   /* -----------------------------------------------------------------------
      1. TEMA — injeta paleta do config.js como CSS variables
