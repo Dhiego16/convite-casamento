@@ -56,10 +56,10 @@ const CONVITE_CONFIG = {
     // ATENÇÃO: esta é a data usada pela contagem regressiva. Mantenha
     // igual à data da cerimônia abaixo (ajuste se cerimônia e recepção
     // acontecerem em dias diferentes).
-    dataISO: "2026-11-21T16:00:00",
+    dataISO: "2026-11-21T15:00:00",
     dataFormatada: "21 de Novembro de 2026",
     diaSemana: "Sábado",
-    horario: "16h00"
+    horario: "15h00"
   },
 
   /* ---------------------------------------------------------------------
@@ -94,7 +94,7 @@ const CONVITE_CONFIG = {
     local: "Igreja Paróquia Santo Antônio de Pádua",
     endereco: "Rua S-1 c/ S-30, Qd. 77, Lt. 01, Conj. Morada do Morro, Senador Canedo - GO",
     data: "21 de Novembro de 2026",
-    horario: "16h",
+    horario: "15h",
     linkMaps: "https://maps.google.com/?q=Paroquia+Santo+Antonio+de+Padua+Senador+Canedo",
     // Mapa embutido por busca de endereço (sem API key, sem precisar de
     // latitude/longitude na mão — o Google localiza a partir do texto
