@@ -169,12 +169,21 @@
     const target = new Date(evento.dataISO).getTime();
     if (Number.isNaN(target)) return;
 
+    const grid = $("#countdown-grid");
+    const arrivedEl = $("#countdown-arrived");
     const elDias = $("#cd-dias"), elHoras = $("#cd-horas"), elMin = $("#cd-min"), elSeg = $("#cd-seg");
+    let intervalId = null;
 
     function tick() {
       const now = Date.now();
-      let diff = target - now;
-      if (diff < 0) diff = 0;
+      const diff = target - now;
+
+      if (diff <= 0) {
+        if (grid) grid.hidden = true;
+        if (arrivedEl) arrivedEl.hidden = false;
+        if (intervalId) clearInterval(intervalId);
+        return;
+      }
 
       const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
       const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -188,7 +197,69 @@
     }
 
     tick();
-    setInterval(tick, 1000);
+    intervalId = setInterval(tick, 1000);
+  }
+
+  /* -----------------------------------------------------------------------
+     7.5 ADICIONAR À AGENDA (arquivo .ics)
+  ----------------------------------------------------------------------- */
+  function initAddToCalendar() {
+    const btn = $("#add-to-calendar");
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+      const evento = cfg.evento || {};
+      const cerimonia = cfg.cerimonia || {};
+      const noivos = cfg.noivos || {};
+
+      const start = new Date(evento.dataISO);
+      if (Number.isNaN(start.getTime())) return;
+      const end = new Date(start.getTime() + 3 * 60 * 60 * 1000); // duração estimada: 3h
+
+      const fmt = (d) => (
+        d.getFullYear().toString().padStart(4, "0") +
+        String(d.getMonth() + 1).padStart(2, "0") +
+        String(d.getDate()).padStart(2, "0") + "T" +
+        String(d.getHours()).padStart(2, "0") +
+        String(d.getMinutes()).padStart(2, "0") +
+        String(d.getSeconds()).padStart(2, "0")
+      );
+
+      const nomeNoiva = noivos.noiva?.primeiroNome || "";
+      const nomeNoivo = noivos.noivo?.primeiroNome || "";
+      const titulo = `Casamento de ${nomeNoiva} & ${nomeNoivo}`;
+      const local = [cerimonia.local, cerimonia.endereco].filter(Boolean).join(", ");
+      const descricao = "Confirme sua presença: " + (window.location.href || "");
+
+      const escapeICS = (str) => String(str).replace(/([,;])/g, "\\$1").replace(/\n/g, "\\n");
+
+      const ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Convite de Casamento//PT-BR",
+        "CALSCALE:GREGORIAN",
+        "BEGIN:VEVENT",
+        `UID:${Date.now()}@convite-casamento`,
+        `DTSTAMP:${fmt(new Date())}`,
+        `DTSTART:${fmt(start)}`,
+        `DTEND:${fmt(end)}`,
+        `SUMMARY:${escapeICS(titulo)}`,
+        `DESCRIPTION:${escapeICS(descricao)}`,
+        `LOCATION:${escapeICS(local)}`,
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "casamento.ics";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    });
   }
 
   /* -----------------------------------------------------------------------
@@ -473,6 +544,7 @@
     initHero();
     initMensagem();
     initCountdown();
+    initAddToCalendar();
     initGaleria();
     initLocais();
     initRSVP();

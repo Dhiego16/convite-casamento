@@ -115,7 +115,7 @@
       <div class="container">
         <p class="section-eyebrow light" data-aos="fade-up">Contagem regressiva</p>
         <h2 class="section-title light" data-aos="fade-up" data-aos-delay="100" id="countdown-data">21 de Novembro de 2026</h2>
-        <div class="countdown-grid" data-aos="fade-up" data-aos-delay="200">
+        <div class="countdown-grid" data-aos="fade-up" data-aos-delay="200" id="countdown-grid">
           <div class="countdown-item">
             <span class="countdown-number" id="cd-dias">00</span>
             <span class="countdown-label">Dias</span>
@@ -136,6 +136,10 @@
             <span class="countdown-label">Segundos</span>
           </div>
         </div>
+        <p class="countdown-arrived light" id="countdown-arrived" hidden>Hoje é o grande dia! 🎉</p>
+        <button type="button" class="btn btn-outline btn-small countdown-calendar-btn" id="add-to-calendar" data-aos="fade-up" data-aos-delay="300">
+          <i class="fa-solid fa-calendar-plus"></i> Adicionar à Agenda
+        </button>
       </div>
     </section>
     <!-- ============================================================

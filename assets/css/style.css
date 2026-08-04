@@ -497,6 +497,17 @@ input { font-family: inherit; }
   .countdown-grid { gap: 1.6rem; }
   .countdown-item { min-width: 70px; }
 }
+.countdown-arrived {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+.countdown-calendar-btn {
+  display: flex;
+  margin: 2.4rem auto 0;
+}
 
 /* -------------------------------------------------------------------------
    15. GALERIA + LIGHTBOX
