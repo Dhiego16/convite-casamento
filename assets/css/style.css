@@ -270,6 +270,15 @@ input { font-family: inherit; }
   height: 2px;
 }
 
+/* Em dispositivos touch (celular/tablet) não existe :hover real, então a
+   barra de volume ficaria "fantasma" — visível ao toque mas sem efeito
+   real no áudio (o iOS/Safari ignora a propriedade volume via JS e só
+   permite ajuste pelos botões físicos do aparelho). Por isso, escondemos
+   a barra nesses dispositivos e deixamos só o botão de play/pause. */
+@media (hover: none), (pointer: coarse) {
+  .music-player .music-volume { display: none; }
+}
+
 /* -------------------------------------------------------------------------
    9. BOTÃO VOLTAR AO TOPO
 ------------------------------------------------------------------------- */
