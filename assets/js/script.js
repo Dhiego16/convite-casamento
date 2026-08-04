@@ -441,42 +441,6 @@
   }
 
   /* -----------------------------------------------------------------------
-     15. COMPARTILHAMENTO
-  ----------------------------------------------------------------------- */
-  function initShare() {
-    const s = cfg.compartilhamento || {};
-    const url = s.urlSite || window.location.href;
-    const texto = encodeURIComponent(s.titulo || document.title);
-    const urlEnc = encodeURIComponent(url);
-
-    $("#share-whatsapp")?.addEventListener("click", () => {
-      window.open(`https://wa.me/?text=${texto}%20${urlEnc}`, "_blank", "noopener");
-    });
-    $("#share-facebook")?.addEventListener("click", () => {
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${urlEnc}`, "_blank", "noopener");
-    });
-    $("#share-copy")?.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(url);
-      } catch (err) {
-        const temp = document.createElement("textarea");
-        temp.value = url;
-        temp.style.position = "fixed";
-        temp.style.opacity = "0";
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand("copy");
-        document.body.removeChild(temp);
-      }
-      const toast = $("#toast");
-      const toastText = $("#toast-text");
-      if (toastText) toastText.textContent = "Link copiado.";
-      toast?.classList.add("show");
-      setTimeout(() => toast?.classList.remove("show"), 2600);
-    });
-  }
-
-  /* -----------------------------------------------------------------------
      16. SCROLL: barra de progresso + botão voltar ao topo
   ----------------------------------------------------------------------- */
   function initScrollEffects() {
@@ -514,7 +478,6 @@
     initRSVP();
     initMensagemFinal();
     initMusica();
-    initShare();
     initScrollEffects();
 
     if (window.AOS) {
