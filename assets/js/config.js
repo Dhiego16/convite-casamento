@@ -139,7 +139,7 @@ const CONVITE_CONFIG = {
     // mostrando o texto genérico antigo.
     titulo: "Ana & Maicon | 21 de Novembro de 2026",
     descricao: "Você está convidado para celebrar o casamento de Ana e Maicon.",
-    imagemPreview: "assets/images/hero.jpg",
+    imagemPreview: "assets/images/share-preview.jpg",
     urlSite: "https://anaemaicon.com.br"
   },
 
