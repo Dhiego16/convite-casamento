@@ -18,7 +18,6 @@
   ----------------------------------------------------------------------- */
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const formatBRL = (n) => (Number(n) || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
   /* -----------------------------------------------------------------------
      1. TEMA — injeta paleta do config.js como CSS variables
@@ -193,34 +192,6 @@
   }
 
   /* -----------------------------------------------------------------------
-     8. NOSSA HISTÓRIA — timeline renderizada dinamicamente
-  ----------------------------------------------------------------------- */
-  function initHistoria() {
-    const h = cfg.historia || {};
-    const titulo = $("#historia-titulo");
-    const subtitulo = $("#historia-subtitulo");
-    if (titulo && h.titulo) titulo.textContent = h.titulo;
-    if (subtitulo && h.subtitulo) subtitulo.textContent = h.subtitulo;
-
-    const container = $("#timeline-container");
-    if (!container || !Array.isArray(h.momentos)) return;
-
-    container.innerHTML = h.momentos.map((m, i) => `
-      <div class="timeline-item" data-aos="fade-${i % 2 === 0 ? 'right' : 'left'}" data-aos-duration="900">
-        <div class="timeline-dot"></div>
-        <div class="timeline-image">
-          <img src="${m.imagem}" alt="${m.titulo}" loading="lazy">
-        </div>
-        <div class="timeline-text">
-          <span class="timeline-date">${m.data}</span>
-          <h3 class="timeline-title">${m.titulo}</h3>
-          <p class="timeline-desc">${m.texto}</p>
-        </div>
-      </div>
-    `).join("");
-  }
-
-  /* -----------------------------------------------------------------------
      9. GALERIA + LIGHTBOX
   ----------------------------------------------------------------------- */
   function initGaleria() {
@@ -318,71 +289,12 @@
   }
 
   /* -----------------------------------------------------------------------
-     11. LISTA DE PRESENTES — render + cópia de chave Pix
+     11. MENSAGEM FINAL
   ----------------------------------------------------------------------- */
-  function initPresentes() {
-    const p = cfg.presentes || {};
-    const titulo = $("#presentes-titulo");
-    const subtitulo = $("#presentes-subtitulo");
-    if (titulo && p.titulo) titulo.textContent = p.titulo;
-    if (subtitulo && p.subtitulo) subtitulo.textContent = p.subtitulo;
-
-    const grid = $("#gifts-grid");
-    const itens = Array.isArray(p.itens) ? p.itens : [];
-    if (!grid) return;
-
-    grid.innerHTML = itens.map((item, i) => {
-      const acaoBtn = item.linkExterno
-        ? `<a href="${item.linkExterno}" target="_blank" rel="noopener" class="gift-btn">Presentear</a>`
-        : `<button type="button" class="gift-btn" data-pix-btn data-nome="${item.nome}">Presentear</button>`;
-      return `
-        <article class="gift-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 90}">
-          <div class="gift-image"><img src="${item.imagem}" alt="${item.nome}" loading="lazy"></div>
-          <div class="gift-body">
-            <h3 class="gift-name">${item.nome}</h3>
-            <p class="gift-desc">${item.descricao}</p>
-            <div class="gift-footer">
-              <span class="gift-value">${formatBRL(item.valor)}</span>
-              ${acaoBtn}
-            </div>
-          </div>
-        </article>
-      `;
-    }).join("");
-
-    const toast = $("#toast");
-    const toastText = $("#toast-text");
-    let toastTimer = null;
-
-    function mostrarToast(texto) {
-      if (!toast) return;
-      if (toastText) toastText.textContent = texto;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
-    }
-
-    async function copiarPix() {
-      const chave = p.chavePix || "";
-      try {
-        await navigator.clipboard.writeText(chave);
-      } catch (err) {
-        // fallback para navegadores sem suporte à Clipboard API
-        const temp = document.createElement("textarea");
-        temp.value = chave;
-        temp.style.position = "fixed";
-        temp.style.opacity = "0";
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand("copy");
-        document.body.removeChild(temp);
-      }
-      mostrarToast("Chave Pix copiada.");
-    }
-
-    $$("[data-pix-btn]", grid).forEach((btn) => {
-      btn.addEventListener("click", copiarPix);
-    });
+  function initMensagemFinal() {
+    const m = cfg.mensagemFinal || {};
+    const texto = $("#mensagem-final-texto");
+    if (texto && m.texto) texto.textContent = m.texto;
   }
 
   /* -----------------------------------------------------------------------
@@ -471,49 +383,6 @@
         if (submitBtn) submitBtn.disabled = false;
       }
     });
-  }
-
-  /* -----------------------------------------------------------------------
-     12. DRESS CODE
-  ----------------------------------------------------------------------- */
-  function initDressCode() {
-    const d = cfg.dressCode || {};
-    const section = $("#dresscode");
-    if (!d.ativo) { section?.remove(); return; }
-
-    const set = (id, val) => { const el = $(`#${id}`); if (el) el.textContent = val; };
-    set("dresscode-titulo", d.titulo);
-    set("dresscode-texto", d.texto);
-    set("dresscode-obs", d.observacao);
-
-    const paleta = $("#dresscode-palette");
-    if (paleta && Array.isArray(d.paletaCores)) {
-      paleta.innerHTML = d.paletaCores.map((cor) => `<span style="background:${cor}"></span>`).join("");
-    }
-  }
-
-  /* -----------------------------------------------------------------------
-     13. CONTATO
-  ----------------------------------------------------------------------- */
-  function initContato() {
-    const c = cfg.contato || {};
-    const titulo = $("#contato-titulo");
-    if (titulo && c.titulo) titulo.textContent = c.titulo;
-
-    const wa = $("#contato-whatsapp");
-    if (wa && c.whatsapp) wa.setAttribute("href", `https://wa.me/${c.whatsapp}`);
-
-    const ig = $("#contato-instagram");
-    if (ig && c.instagram) ig.setAttribute("href", `https://instagram.com/${c.instagram.replace("@", "")}`);
-
-    const tel = $("#contato-telefone");
-    if (tel && c.telefone) {
-      tel.setAttribute("href", `tel:${c.telefone.replace(/\D/g, "")}`);
-      const icon = tel.querySelector("i");
-      tel.innerHTML = "";
-      if (icon) tel.appendChild(icon);
-      tel.appendChild(document.createTextNode(` ${c.telefone}`));
-    }
   }
 
   /* -----------------------------------------------------------------------
@@ -640,13 +509,10 @@
     initHero();
     initMensagem();
     initCountdown();
-    initHistoria();
     initGaleria();
     initLocais();
     initRSVP();
-    initPresentes();
-    initDressCode();
-    initContato();
+    initMensagemFinal();
     initMusica();
     initShare();
     initScrollEffects();

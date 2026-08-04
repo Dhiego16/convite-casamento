@@ -103,70 +103,19 @@ const CONVITE_CONFIG = {
   },
 
   /* ---------------------------------------------------------------------
-     10. LISTA DE PRESENTES
+     10. MENSAGEM FINAL
   --------------------------------------------------------------------- */
-  presentes: {
-    titulo: "Lista de Presentes",
-    subtitulo: "Sua presença é o nosso maior presente. Mas se desejar nos presentear, preparamos esta lista com carinho.",
-    chavePix: "ana.maicon.casamento@email.com",
-    tipoChave: "E-mail",
-    itens: [
-      {
-        nome: "Jogo de Copo",
-        descricao: "Porcelana para os jantares em família",
-        valor: 350.00,
-        imagem: "assets/images/jogodecopo.png",
-        linkExterno: null
-      },
-      {
-        nome: "Jogo de Pratos",
-        descricao: "Roupa de cama para o novo lar",
-        valor: 280.00,
-        imagem: "assets/images/presente-03.svg",
-        linkExterno: null
-      },
-      {
-        nome: "Jogo de Xícaras",
-        descricao: "Ajude a equipar nossa cozinha",
-        valor: 420.00,
-        imagem: "assets/images/presente-04.svg",
-        linkExterno: "https://www.exemplo-loja.com.br/lista/beatriz-rafael"
-      },
-      {
-        nome: "Escorredor de Louça",
-        descricao: "Detalhes que farão da nossa casa um lar",
-        valor: 190.00,
-        imagem: "assets/images/presente-05.svg",
-        linkExterno: null
-      },
-      {
-        nome: "Batedeira",
-        descricao: "Contribua para a nossa sala de estar",
-        valor: 600.00,
-        imagem: "assets/images/batedeira.png",
-        linkExterno: null
-      }
-    ]
+  mensagemFinal: {
+    texto: "Sua presença é essencial. Caso deseje nos presentear, agradecemos o carinho, mas a sua participação já é o nosso melhor presente."
   },
 
   /* ---------------------------------------------------------------------
-     11. DRESS CODE (opcional — defina "ativo: false" para ocultar)
-  --------------------------------------------------------------------- */
-  dressCode: {
-    ativo: true,
-    titulo: "Dress Code",
-    texto: "Traje Esporte Fino / Cerimônia",
-    observacao: "Pedimos gentilmente que se evite o uso da cor branca, reservada à noiva.",
-    paletaCores: ["#0a0a0b", "#3b3a38", "#7d7568", "#c9a868", "#e8e2d5"]
-  },
-
-  /* ---------------------------------------------------------------------
-     12. CONTATO
+     11. CONTATO
+     Usado internamente pelo fallback de RSVP (abre o WhatsApp com os
+     dados preenchidos). Não é exibido como seção no site.
   --------------------------------------------------------------------- */
   contato: {
-    titulo: "Contato",
-    whatsapp: "+5562994415344",
-    telefone: "(62) 99441-5344",
+    whatsapp: "+5562994415344"
   },
 
   /* ---------------------------------------------------------------------
@@ -190,7 +139,7 @@ const CONVITE_CONFIG = {
     // mostrando o texto genérico antigo.
     titulo: "Ana & Maicon | 21 de Novembro de 2026",
     descricao: "Você está convidado para celebrar o casamento de Ana e Maicon.",
-    imagemPreview: "assets/images/hero.svg",
+    imagemPreview: "assets/images/hero.jpg",
     urlSite: "https://anaemaicon.com.br"
   },
 

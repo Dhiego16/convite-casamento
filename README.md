@@ -28,7 +28,7 @@ assets/js/config.js
 /index.html                 → estrutura semântica de todas as seções
 /assets/css/style.css       → design system completo (tokens, componentes)
 /assets/js/config.js        → ÚNICA fonte de conteúdo do convite
-/assets/js/script.js        → lógica (render, countdown, lightbox, pix, etc.)
+/assets/js/script.js        → lógica (render, countdown, lightbox, rsvp, etc.)
 /assets/images/             → fotos do convite
 /assets/music/              → trilha sonora (mp3)
 ```
@@ -41,10 +41,8 @@ assets/js/config.js
 - Contagem regressiva em tempo real
 - Timeline "Nossa História" com scroll reveal (AOS)
 - Galeria com lightbox (zoom, swipe, teclado, navegação)
-- Cerimônia e Recepção com mapa incorporado (OpenStreetMap, sem API key)
-- Lista de presentes com cópia automática da chave Pix + toast de confirmação
-- Dress code (opcional — desative com `dressCode.ativo = false`)
-- Contato (WhatsApp, Instagram, telefone)
+- Cerimônia com mapa incorporado (Google Maps, sem API key)
+- Mensagem final de encerramento
 - Compartilhamento (WhatsApp, Facebook, copiar link)
 - Botão voltar ao topo + barra de progresso de scroll
 - Cursor personalizado discreto (desktop)
