@@ -762,6 +762,7 @@ input { font-family: inherit; }
 /* -------------------------------------------------------------------------
    19. MENSAGEM FINAL
 ------------------------------------------------------------------------- */
+.final-message-section { padding-top: 0; }
 .final-message-text {
   text-align: center;
   font-family: var(--font-display);
